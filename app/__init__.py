@@ -3,10 +3,13 @@ from flask_cors import CORS
 from flask_swagger_ui import get_swaggerui_blueprint
 from app.routes import create_routers
 from flask_restx import Api
-
+from app.db.database import init_db  # Import init_db
 
 def create_app():
     app = Flask(__name__)
+
+    # Initialize the database
+    init_db()
 
     # Enable CORS for all routes and origins
     CORS(app)
