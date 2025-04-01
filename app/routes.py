@@ -9,8 +9,7 @@ def create_routers(api: Api) -> None:
     Args:
         api (Api): The Flask-RESTx API instance where namespaces will be registered.
     """
-    # Step 1: Import all controllers to ensure they are loaded
-    # This will also import the namespaces defined in each controller module.
+    # Step 1: Import all controllers to ensure they are loaded before registration for the Flask-RESTx API
     import_controllers()
 
     # Step 2: Register all namespaces to associate them with the API
