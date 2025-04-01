@@ -18,7 +18,9 @@ class CharacterService:
         return self.repository.search_by_id(character_id)
 
     def create(self, character_data: dict) -> Character:
-        if self.repository.search_by_id(character_data["id"]):
+        # check if the character ID already exists
+        character_exists = self.repository.search_by_id(character_data["id"])
+        if character_exists:
             raise ValueError("Character with this ID already exists.")
         character = Character(**character_data)
         return self.repository.add(character)
