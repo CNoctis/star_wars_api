@@ -8,7 +8,10 @@ def define_models(api):
         {
             "id": fields.Integer(required=True, description="Unique ID", example=1),
             "name": fields.String(
-                required=True, description="Character name", example="Luke Skywalker", min_length=1
+                required=True,
+                description="Character name",
+                example="Luke Skywalker",
+                min_length=1,
             ),
             "height": fields.Integer(required=True, description="Height", example=172),
             "mass": fields.Integer(required=True, description="Weight", example=77),

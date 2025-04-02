@@ -2,6 +2,7 @@ from app.utils.controller_loader import import_controllers
 from app.utils.register_namespace import register_namespace
 from flask_restx import Api
 
+
 def create_routers(api: Api) -> None:
     """
     Registers namespaces in the provided API instance.

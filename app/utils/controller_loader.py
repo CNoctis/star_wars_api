@@ -2,25 +2,26 @@ import os
 import importlib
 from typing import Optional
 
+
 def import_controllers(base_path: Optional[str] = "app/modules") -> None:
     """
     Dynamically imports all controller modules from the specified base path.
-    
-    This function ensures that all controllers inside the `controllers/` folder 
-    of each module are loaded before registering them in the API. This is 
-    necessary because Flask-RESTx requires namespaces to be defined before 
+
+    This function ensures that all controllers inside the `controllers/` folder
+    of each module are loaded before registering them in the API. This is
+    necessary because Flask-RESTx requires namespaces to be defined before
     they can be registered.
 
     Args:
         base_path (Optional[str]): The base directory where modules are located.
                                    Defaults to "app/modules".
-    
+
     Behavior:
         - Iterates through subdirectories in `base_path` (each representing a module).
         - If a module has a `controllers/` folder, it imports all `.py` files inside.
         - Skips `__init__.py` to avoid redundant imports.
         - Logs a warning if a module has no controllers.
-    
+
     Example:
         Given the structure:
         ```

@@ -16,9 +16,13 @@ service = CharacterService(db)  # Initialize the service with the database sessi
 api = ns_characters
 
 # Define models for request and response
-character_add_params, character_model_response, error_model, success_message_model, character_getall_response = (
-    define_models(api)
-)
+(
+    character_add_params,
+    character_model_response,
+    error_model,
+    success_message_model,
+    character_getall_response,
+) = define_models(api)
 
 
 @api.route("/getAll")
