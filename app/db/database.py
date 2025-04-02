@@ -3,11 +3,48 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import OperationalError
 
+
 DATABASE_URL = "sqlite:///./app/star_wars.db"
 
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = declarative_base()
+
+
+class DatabaseTableBuilder:
+    """
+    A class that facilitates the creation of tables in a database using SQLAlchemy.
+
+    Attributes:
+        - Base: An SQLAlchemy base object used to define the structure of tables.
+        - engine: A database engine connection object used for executing operations on the database.
+
+    Methods:
+        - create_table: A method that uses the Base object to create all tables defined in SQLAlchemy in the database
+        associated with the engine.
+    """
+
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+            cls._instance._base = declarative_base()
+            cls._instance._engine = engine
+        return cls._instance
+
+    @staticmethod
+    def get_base():
+        if DatabaseTableBuilder._instance is None:
+            DatabaseTableBuilder._instance = DatabaseTableBuilder()
+        return DatabaseTableBuilder._instance._base
+
+    def create_table(self):
+        try:
+            self._base.metadata.create_all(self._engine, checkfirst=True)
+        except OperationalError as e:
+            print(f"Database error: {e}")
+        except Exception as e:
+            print(f"Unexpected error: {e}")
 
 
 def init_db() -> None:
@@ -16,9 +53,5 @@ def init_db() -> None:
     """
     from app.modules.characters.models.character_model import Character
 
-    try:
-        # Create all tables in the database
-        Base.metadata.create_all(bind=engine)
-    except OperationalError as e:
-        # Log or handle the error if needed
-        print(f"Warning: {e}")
+    builder = DatabaseTableBuilder()
+    builder.create_table()
