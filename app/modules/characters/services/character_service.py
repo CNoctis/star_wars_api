@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from app.modules.characters.models.character_model import Character
 from app.modules.characters.repositories.character_repository import CharacterRepository
-from typing import Optional, List  # Import necesario para anotaciones de tipo
+from typing import Optional, List
 
 
 class CharacterService:

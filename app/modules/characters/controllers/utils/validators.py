@@ -1,4 +1,4 @@
-from typing import Dict, Any  # Necessary import for type annotations
+from typing import Dict, Any
 
 
 def validate_character_data(data: Dict[str, Any]) -> None:

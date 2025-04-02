@@ -10,7 +10,7 @@ from app.modules.characters.controllers.utils.models import define_models
 from app.modules.characters.controllers.utils.validators import validate_character_data
 
 db = SessionLocal()
-service = CharacterService(db)  # Initialize the service with the database session
+service = CharacterService(db)
 
 # Rename the namespace to avoid confusion
 api = ns_characters
